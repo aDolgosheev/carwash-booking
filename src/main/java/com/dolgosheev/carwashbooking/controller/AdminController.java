@@ -1,5 +1,6 @@
 package com.dolgosheev.carwashbooking.controller;
 
+import com.dolgosheev.carwashbooking.dto.ServiceTypeCreateDto;
 import com.dolgosheev.carwashbooking.dto.ServiceTypeDto;
 import com.dolgosheev.carwashbooking.entity.ServiceType;
 import com.dolgosheev.carwashbooking.mapper.ServiceTypeMapper;
@@ -20,8 +21,8 @@ public class AdminController {
     private final ServiceTypeMapper serviceTypeMapper;
 
     @PostMapping("/services")
-    public ResponseEntity<?> addService(@RequestBody ServiceTypeDto serviceTypeDto) {
-        ServiceType serviceType = serviceTypeMapper.toEntity(serviceTypeDto);
+    public ResponseEntity<?> addService(@RequestBody ServiceTypeCreateDto serviceTypeCreateDto) {
+        ServiceType serviceType = serviceTypeMapper.fromCreateDto(serviceTypeCreateDto);
         ServiceType savedService = adminService.addService(serviceType);
         return ResponseEntity.ok(serviceTypeMapper.toDto(savedService));
     }

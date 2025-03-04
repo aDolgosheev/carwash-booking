@@ -1,5 +1,6 @@
 package com.dolgosheev.carwashbooking.controller;
 
+import com.dolgosheev.carwashbooking.dto.BookingCreateDto;
 import com.dolgosheev.carwashbooking.dto.BookingDto;
 import com.dolgosheev.carwashbooking.entity.Booking;
 import com.dolgosheev.carwashbooking.entity.User;
@@ -21,8 +22,8 @@ public class BookingController {
     private final BookingMapper bookingMapper;
 
     @PostMapping
-    public ResponseEntity<?> createBooking(@RequestBody BookingDto bookingDto) {
-        Booking booking = bookingMapper.toEntity(bookingDto);
+    public ResponseEntity<?> createBooking(@RequestBody BookingCreateDto bookingCreateDto) {
+        Booking booking = bookingMapper.fromCreateDto(bookingCreateDto);
         Booking createdBooking = bookingService.createBooking(booking);
         return ResponseEntity.ok(bookingMapper.toDto(createdBooking));
     }
